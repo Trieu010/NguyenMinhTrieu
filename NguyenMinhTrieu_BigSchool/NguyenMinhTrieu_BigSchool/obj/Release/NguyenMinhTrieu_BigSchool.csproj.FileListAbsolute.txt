@@ -1,0 +1,2 @@
+D:\Web\BaiTapTuan3_4\NguyenMinhTrieu\NguyenMinhTrieu_BigSchool\NguyenMinhTrieu_BigSchool\obj\Release\NguyenMinhTrieu_BigSchool.csproj.AssemblyReference.cache
+D:\Web\BaiTapTuan3_4\NguyenMinhTrieu\NguyenMinhTrieu_BigSchool\NguyenMinhTrieu_BigSchool\obj\Release\NguyenMinhTrieu_BigSchool.csproj.CoreCompileInputs.cache

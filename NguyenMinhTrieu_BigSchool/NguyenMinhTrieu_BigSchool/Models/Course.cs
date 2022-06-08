@@ -24,6 +24,10 @@ namespace NguyenMinhTrieu_BigSchool.Models
         public bool IsShowGoing = false;
         public bool IsShowFollow = false;
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Course()
+        {
+            Attendances = new HashSet<Attendance>();
+        }
 
         public int Id { get; set; }
 
@@ -40,8 +44,8 @@ namespace NguyenMinhTrieu_BigSchool.Models
         public int CategoryId { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Attendance> Attendances { get; set; }
 
         public virtual Category Category { get; set; }
-        public DateTime DateTime { get; internal set; }
     }
 }

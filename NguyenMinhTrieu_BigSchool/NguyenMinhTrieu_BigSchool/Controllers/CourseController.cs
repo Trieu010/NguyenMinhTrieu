@@ -45,5 +45,80 @@ namespace NguyenMinhTrieu_BigSchool.Controllers
             //context
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult Attending()
+        {
+            BigSchoolContext context = new BigSchoolContext();
+            ApplicationUser currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()
+                .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            var listAttendancces = context.Attendances.Where(p => p.Attendee == currentUser.Id).ToList();
+            var courses = new List<Course>();
+            foreach (Attendance temp in listAttendancces)
+            {
+                Course objCourse = temp.Course;
+                objCourse.LectureName = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()
+                    .FindById(objCourse.LecturerId).Name;
+                courses.Add(objCourse);
+            }
+            return View(courses);
+        }
+
+        public ActionResult Mine()
+        {
+            BigSchoolContext context = new BigSchoolContext();
+            ApplicationUser currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()
+                .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            var courses = context.Courses.Where(c => c.LecturerId == currentUser.Id && c.Datetime > DateTime.Now).ToList();
+            foreach (Course i in courses)
+            {
+                i.LectureName = currentUser.Name;
+            }
+            return View(courses);
+        }
+
+        public ActionResult DeleteMine(int Id)
+        {
+            BigSchoolContext context = new BigSchoolContext();
+            var courses = context.Courses.Find(Id);
+            context.Courses.Remove(courses);
+            context.SaveChanges();
+            return RedirectToAction("ListMine");
+            //return BadRequest("the attendance already exists");
+        }
+
+        public void setViewBag(int? selectedId = null)
+        {
+            var model = new Course();
+            ViewBag.CategoryId = new SelectList(model.ListAll(), "Id", "Name", selectedId);
+        }
+
+        public ActionResult EditMine(int Id)
+        {
+            BigSchoolContext context = new BigSchoolContext();
+            var model = context.Courses.Find(Id);
+            setViewBag(model.CategoryId);
+            return View(model);
+        }
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditMine(Course model)
+        {
+            BigSchoolContext context = new BigSchoolContext();
+            setViewBag(model.CategoryId);
+            var updateCourses = context.Courses.Find(model.Id);
+            updateCourses.Datetime = model.Datetime;
+            updateCourses.LectureName = model.LectureName;
+            updateCourses.CategoryId = model.CategoryId;
+            var id = context.SaveChanges();
+            if (id > 0)
+                return RedirectToAction("ListMine");
+            else
+            {
+                ModelState.AddModelError("", "Can't save to database");
+                return View(model);
+            }
+        }
+
+
     }
 }
