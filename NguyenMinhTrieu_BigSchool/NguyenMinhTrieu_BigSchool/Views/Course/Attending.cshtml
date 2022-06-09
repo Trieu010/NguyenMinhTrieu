@@ -1,12 +1,10 @@
 ﻿@model IEnumerable<NguyenMinhTrieu_BigSchool.Models.Course>
-
 @{
     ViewBag.Title = "Attending";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div class="row" style="padding-top:100px">
-    <h2>Attending</h2>
+<h2>Attending</h2>
+<div class="row" style="padding-top: 10px">
     <ul class="course">
         @foreach (var course in Model)
         {
@@ -21,7 +19,7 @@
                 </div>
                 <div class="details">
                     <span class="lecture">
-                        @course.Name
+                        @course.LectureName
                     </span>
                     <br />
                     <span class="category">
