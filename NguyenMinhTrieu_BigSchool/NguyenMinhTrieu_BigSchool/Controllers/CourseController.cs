@@ -9,8 +9,7 @@ using System.Web.Mvc;
 
 namespace NguyenMinhTrieu_BigSchool.Controllers
 {
-    //hi hi 
-    ddddsadasd
+    //hi chao thay
     public class CourseController : Controller
     {
         // GET: Course
