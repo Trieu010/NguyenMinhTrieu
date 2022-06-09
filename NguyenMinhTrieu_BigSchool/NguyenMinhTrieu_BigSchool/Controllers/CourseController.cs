@@ -76,7 +76,7 @@ namespace NguyenMinhTrieu_BigSchool.Controllers
             }
             return View(courses);
         }
-
+        //
         public ActionResult DeleteMine(int Id)
         {
             BigSchoolContext context = new BigSchoolContext();
